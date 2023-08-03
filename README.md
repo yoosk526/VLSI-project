@@ -1,4 +1,2 @@
-# VLSI senior project
+# VLSI senior project (Yoo Seung Kweon)
 ## Live Super Resolution in Drone video
-
-modify at yoo's branch
