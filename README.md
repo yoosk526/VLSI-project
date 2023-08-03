@@ -1,4 +1,4 @@
-# VLSI senior project (Yoo Seung Kweon)
+# VLSI senior project (YSK)
 ## Live Super Resolution in Drone video
 
 ### Purpose
