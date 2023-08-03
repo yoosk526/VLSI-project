@@ -1,4 +1,4 @@
-# VLSI senior project (YSK)
+# VLSI senior project
 ## Live Super Resolution in Drone video
 
 ### Purpose
