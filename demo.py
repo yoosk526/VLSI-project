@@ -6,7 +6,7 @@ from libs.utils import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "--video", type=str, default="./media/270_480_video.mp4"
+    "--video", type=str, default="./media/ori/270_480_video.mp4"
 )
 parser.add_argument(
     "--model", type=str, default="x4_270_480.trt"
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     except:
         raise ValueError(f"Failed to open video file")
     
-    model_path = os.path.join("./model", opt.model)
+    model_path = os.path.join("./trt/visdrone_abpn", opt.model)
     size = opt.model[3:10]		# "270_480"
     h, w = map(int, size.split("_"))
     size = (h, w)
