@@ -14,6 +14,12 @@ parser.add_argument(
 parser.add_argument(
     "--framerate", type=int, default=30
 )
+parser.add_argument(
+    "--height", type=int, default=270
+)
+parser.add_argument(
+    "--width", type=int, default=480
+)
 
 def preprocess(x:np.ndarray):
     x = cv2.cvtColor(x, cv2.COLOR_BGR2RGB)
@@ -48,10 +54,8 @@ if __name__ == "__main__":
     except:
         raise ValueError(f"Failed to open video file")
     
-    model_path = os.path.join("./trt/visdrone_abpn", opt.model)
-    size = opt.model[3:10]		# "270_480"
-    h, w = map(int, size.split("_"))
-    size = (h, w)
+    model_path = opt.model
+    size = opt.height, opt.width
     
     # load model
     trt_model = edgeSR_TRT_Engine(
