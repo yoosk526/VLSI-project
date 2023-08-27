@@ -10,7 +10,7 @@ parser.add_argument(
 	"--image", type=str, default="./media/ori/270_480_01.png"
 )
 parser.add_argument(
-	"--model", type=str, default="~/wroking/train/onnx/x4_270_480.onnx"
+	"--model", type=str, default="~/working/train/onnx/x4_270_480.onnx"
 )
 parser.add_argument(
 	"--save", type=str, default="./media/result/onnx_x4_270_480_01.png"
