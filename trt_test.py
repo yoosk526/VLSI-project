@@ -12,15 +12,13 @@ parser.add_argument(
 	"--model", type=str, default="./model/x4_270_480.trt"
 )
 parser.add_argument(
-	"--save", type=str, default="./media/result/x4_270_480_01.trt"
+	"--save", type=str, default="./media/result/trt_x4_270_480_01.png"
 )
 
 
 if __name__ == "__main__":
 	opt = parser.parse_args()
-	
-	print(opt.image, opt.model)
-	
+		
 	trt_model = edgeSR_TRT_Engine(
 		engine_path=opt.model, scale=4, lr_size=(270, 480)
 	)
