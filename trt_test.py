@@ -15,7 +15,6 @@ parser.add_argument(
 	"--save", type=str, default="./media/result/trt_x4_270_480_01.png"
 )
 
-
 if __name__ == "__main__":
 	opt = parser.parse_args()
 		
