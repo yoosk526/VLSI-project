@@ -1,28 +1,47 @@
+import os
+import argparse
 import cv2
 import numpy as np
 from libs.utils import *
 
+parser = argparse.ArgumentParser()
+parser.add_argument(
+	"--image", type=str, default="./media/ori/270_480_01.png"
+)
+parser.add_argument(
+	"--model", type=str, default="./model/x4_270_480.trt"
+)
+parser.add_argument(
+	"--save", type=str, default="./media/result/x4_270_480_01.trt"
+)
+
+
 if __name__ == "__main__":
-    trt_model = edgeSR_TRT_Engine(
-        engine_path="./model/x4_224_320.trt", scale=4, lr_size=(224,320)
-    )
-    lrOrig = openImage("./media/ar_02.png")
-    lrObj = np.transpose(lrOrig, [2, 0, 1])
-    lrObj = np.ascontiguousarray(lrObj, dtype=np.float32)
-    while True:
-        cv2.imshow("trt_img", lrOrig)
-        key = cv2.waitKey(1)
-        if key == 27:
-            break
-    cv2.destroyAllWindows()
-    lrObj /= 255.0  # Normalization    
-    srObj = (trt_model(lrObj) * 255.0).astype(np.uint8)
-    srObj = np.transpose(srObj, [1,2,0])
-    srObj = cv2.cvtColor(srObj, cv2.COLOR_RGB2BGR)
-    
-    while True:
-        cv2.imshow("trt_img", srObj)
-        key = cv2.waitKey(1)
-        if key == 27:
-            break
-    cv2.destroyAllWindows()
+	opt = parser.parse_args()
+	
+	print(opt.image, opt.model)
+	
+	trt_model = edgeSR_TRT_Engine(
+		engine_path=opt.model, scale=4, lr_size=(270, 480)
+	)
+	lrOrig = openImage(opt.image)
+	
+	# View image
+	'''
+	while True:
+		cv2.imshow("Low resoultion", lrOrig)
+		key = cv2.waitKey(1)
+		if key == 27:
+			cv2.destroyAllWindows()
+			break
+	'''
+	
+	# SuperResolution
+	lrObj = np.transpose(lrOrig, [2, 0, 1])		# H, W, C -> C, H, W
+	lrObj = np.ascontiguousarray(lrObj, dtype=np.float32)	# return contiguous array
+	lrObj /= 255.0
+	srObj = (trt_model(lrObj) * 255.0).astype(np.uint8)
+	srObj = np.transpose(srObj, [1, 2, 0])
+	srObj = cv2.cvtColor(srObj, cv2.COLOR_RGB2BGR)
+	
+	cv2.imwrite(opt.save, srObj)

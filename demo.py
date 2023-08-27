@@ -6,13 +6,19 @@ from libs.utils import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "--video", type=str, default="./media/270_480_video.mp4"
+    "--video", type=str, default="./media/ori/270_480_video.mp4"
 )
 parser.add_argument(
     "--model", type=str, default="x4_270_480.trt"
 )
 parser.add_argument(
     "--framerate", type=int, default=30
+)
+parser.add_argument(
+    "--height", type=int, default=270
+)
+parser.add_argument(
+    "--width", type=int, default=480
 )
 
 def preprocess(x:np.ndarray):
@@ -48,10 +54,8 @@ if __name__ == "__main__":
     except:
         raise ValueError(f"Failed to open video file")
     
-    model_path = os.path.join("./model", opt.model)
-    size = opt.model[3:10]		# "270_480"
-    h, w = map(int, size.split("_"))
-    size = (h, w)
+    model_path = opt.model
+    size = opt.height, opt.width
     
     # load model
     trt_model = edgeSR_TRT_Engine(
