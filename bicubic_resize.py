@@ -12,7 +12,6 @@ parser.add_argument(
 
 def bicubicResize(x:np.ndarray, scale:int=4):
 	h, w, _ = x.shape
-	x = cv2.cvtColor(x, cv2.COLOR_RGB2BGR)
 	x = cv2.resize(x, dsize=(w*scale, h*scale), interpolation=cv2.INTER_NEAREST)
 	return x
 
