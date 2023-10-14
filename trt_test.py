@@ -14,12 +14,16 @@ parser.add_argument(
 parser.add_argument(
 	"--save", type=str, default="./media/result/trt_270_480_01.png"
 )
+parser.add_argument(
+	"--upscale", type=int, default=4
+)
+
 
 if __name__ == "__main__":
 	opt = parser.parse_args()
 		
 	trt_model = edgeSR_TRT_Engine(
-		engine_path=opt.model, scale=4, lr_size=(270, 480)
+		engine_path=opt.model, scale=opt.upscale, lr_size=(270, 480)
 	)
 	lrOrig = openImage(opt.image)
 	
