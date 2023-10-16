@@ -20,21 +20,24 @@ parser.add_argument(
 parser.add_argument(
     "--width", type=int, default=480
 )
+parser.add_argument(
+    "--scale", type=int, default=4
+)
 
 def preprocess(x:np.ndarray):
     x = cv2.cvtColor(x, cv2.COLOR_BGR2RGB)
-    x = np.transpose(x, [2, 0, 1])
+    x = np.transpose(x, [2, 0, 1])      # H, W, C -> C, H, W
     x = x.astype(np.float32) / 255.0    # Normalization
     x = np.ascontiguousarray(x, dtype=np.float32)
     return x
 
 def postprocess(x:np.ndarray):
     x = (x * 255.0).astype(np.uint8)
-    x = np.transpose(x, [1, 2, 0])
+    x = np.transpose(x, [1, 2, 0])      # C, H, W -> H, W, C
     x = cv2.cvtColor(x, cv2.COLOR_RGB2BGR)
     return x    
 
-def bicubicResize(x:np.ndarray, scale:int=4):
+def bicubicResize(x:np.ndarray, scale:int):
     h, w, _ = x.shape
     x = cv2.resize(x, dsize=(w*scale, h*scale), interpolation=cv2.INTER_NEAREST)
     return x
@@ -56,10 +59,11 @@ if __name__ == "__main__":
     
     model_path = opt.model
     size = opt.height, opt.width
-    
+    upscale = opt.scale
+
     # load model
     trt_model = edgeSR_TRT_Engine(
-        engine_path=model_path, scale=4, lr_size=size
+        engine_path=model_path, scale=upscale, lr_size=size
     )
     
     frameRate = opt.framerate
@@ -76,7 +80,7 @@ if __name__ == "__main__":
         ret, frame = cap.read()
         if not ret:
             break
-        bicubic = bicubicResize(frame)
+        bicubic = bicubicResize(frame, upscale)
         input_np = preprocess(frame)
         sr_np = postprocess(trt_model(input_np))
         key = cv2.waitKey(frameRate)
