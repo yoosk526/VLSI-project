@@ -40,8 +40,9 @@ if __name__ == "__main__":
 	# SuperResolution
 	lrObj = np.transpose(lrOrig, [2, 0, 1])		# H, W, C -> C, H, W
 	lrObj = np.ascontiguousarray(lrObj, dtype=np.float32)	# return contiguous array
-	lrObj /= 255.0
-	srObj = (trt_model(lrObj) * 255.0).astype(np.uint8)
+	# lrObj /= 255.0
+	# srObj = (trt_model(lrObj) * 255.0).astype(np.uint8)
+	srObj = (trt_model(lrObj)).astype(np.uint8)
 	srObj = np.transpose(srObj, [1, 2, 0])
 	srObj = cv2.cvtColor(srObj, cv2.COLOR_RGB2BGR)
 	
