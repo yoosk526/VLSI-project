@@ -12,38 +12,35 @@ parser.add_argument(
 	"--model", type=str, default="./model/x4_270_480.trt"
 )
 parser.add_argument(
+    "--height", type=int, default=270
+)
+parser.add_argument(
+    "--width", type=int, default=480
+)
+parser.add_argument(
 	"--save", type=str, default="./media/result/trt_270_480_01.png"
 )
 parser.add_argument(
 	"--scale", type=int, default=4
 )
-
+parser.add_argument(
+	"--norm", action="store_true"
+)
 
 if __name__ == "__main__":
 	opt = parser.parse_args()
 		
 	trt_model = edgeSR_TRT_Engine(
-		engine_path=opt.model, scale=opt.scale, lr_size=(270, 480)
+		engine_path=opt.model, scale=opt.scale, lr_size=(opt.height, opt.width)
 	)
 	lrOrig = openImage(opt.image)
 	
-	# View image
-	'''
-	while True:
-		cv2.imshow("Low resoultion", lrOrig)
-		key = cv2.waitKey(1)
-		if key == 27:
-			cv2.destroyAllWindows()
-			break
-	'''
-	
 	# SuperResolution
-	lrObj = np.transpose(lrOrig, [2, 0, 1])		# H, W, C -> C, H, W
-	lrObj = np.ascontiguousarray(lrObj, dtype=np.float32)	# return contiguous array
-	# lrObj /= 255.0
-	# srObj = (trt_model(lrObj) * 255.0).astype(np.uint8)
-	srObj = (trt_model(lrObj)).astype(np.uint8)
-	srObj = np.transpose(srObj, [1, 2, 0])
-	srObj = cv2.cvtColor(srObj, cv2.COLOR_RGB2BGR)
+	lrObj = preprocess(lrOrig, opt.norm)
+	srObj = postprocess(trt_model(lrObj), opt.norm)
 	
 	cv2.imwrite(opt.save, srObj)
+	cv2.imshow("SuperResolution", srObj)
+
+	cv2.waitKey()
+	cv2.destroyAllWindows()
