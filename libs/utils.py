@@ -11,7 +11,6 @@ import pycuda.driver as cuda
 def preprocess(x:np.ndarray, norm:bool):
     x = cv2.cvtColor(x, cv2.COLOR_BGR2RGB)
     x = np.transpose(x, [2, 0, 1])    
-#    x = np.expand_dims(x, axis=0)
     if norm == True:
         x = np.ascontiguousarray(x, dtype=np.float32) / 255.0
     else:
