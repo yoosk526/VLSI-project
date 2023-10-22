@@ -39,8 +39,9 @@ if __name__ == "__main__":
 	lrObj = preprocess(lrOrig, opt.norm)
 	srObj = postprocess(trt_model(lrObj), opt.norm)
 	
-#	cv2.imwrite(opt.save, srObj)
+	cv2.imwrite(opt.save, srObj)
+	'''
 	cv2.imshow("SuperResolution", srObj)
-
 	cv2.waitKey()
 	cv2.destroyAllWindows()
+	'''
