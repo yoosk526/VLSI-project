@@ -1,6 +1,7 @@
 import argparse
 import numpy as np
 import cv2
+from libs.utils import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -12,11 +13,6 @@ parser.add_argument(
 parser.add_argument(
 	"--scale", type=int, default=4
 )
-
-def bicubicResize(x:np.ndarray, scale:int):
-	h, w, _ = x.shape
-	x = cv2.resize(x, dsize=(w*scale, h*scale), interpolation=cv2.INTER_NEAREST)
-	return x
 
 if __name__ == "__main__":
 	args = parser.parse_args()
