@@ -6,7 +6,7 @@ from libs.utils import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "--video", type=str, default="./media/ori/270_480.mp4"
+    "--video", type=str, default="./media/ori/270_480_01.mp4"
 )
 parser.add_argument(
     "--model", type=str, default="x4_270_480.trt"
@@ -24,7 +24,7 @@ parser.add_argument(
     "--scale", type=int, default=4
 )
 parser.add_argument(
-	"--norm", action="store_true"
+    "--norm", action="store_true"
 )
 
 if __name__ == "__main__":
