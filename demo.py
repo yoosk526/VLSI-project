@@ -9,7 +9,7 @@ parser.add_argument(
     "--video", type=str, default="./media/ori/270_480.mp4"
 )
 parser.add_argument(
-    "--model", type=str, default="x4_270_480.trt"
+    "--model", type=str, default="./model/x4_270_480.trt"
 )
 parser.add_argument(
     "--framerate", type=int, default=30
