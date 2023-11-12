@@ -41,9 +41,12 @@ if __name__ == "__main__":
 
 	biObj = bicubicResize(openImage(opt.image))
 	canvas = horizontalFusion(biObj, srObj)
-	
-	cv2.imshow("Bicubic vs SuperResolution", canvas)
-	cv2.waitKey(5000)
+
+	BICUBIC_SR_WINDOW = "BICUBIC vs SUPER-RESOLUTION"
+    cv2.namedWindow(BICUBIC_SR_WINDOW)
+    cv2.moveWindow(BICUBIC_SR_WINDOW, 570, 250)
+    cv2.imshow(BICUBIC_SR_WINDOW, canvas)
+    cv2.waitKey(5000)
 	cv2.destroyAllWindows()
 
 	'''
