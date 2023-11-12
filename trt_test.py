@@ -39,8 +39,17 @@ if __name__ == "__main__":
 	lrObj = preprocess(lrOrig, opt.norm)
 	srObj = postprocess(trt_model(lrObj), opt.norm)
 
+	biObj = bicubicResize(openImage(opt.image))
+	canvas = horizontalFusion(biObj, srObj)
+	
+	cv2.imshow("Bicubic vs SuperResolution", canvas)
+	cv2.waitKey(5000)
+	cv2.destroyAllWindows()
+
+	'''
 	if not opt.save:
 		save = "./media/result/trt_" + opt.image[-14:]
 		cv2.imwrite(save, srObj)
 	else:
 		cv2.imwrite(opt.save, srObj)
+	'''
