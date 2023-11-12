@@ -18,7 +18,7 @@ parser.add_argument(
     "--width", type=int, default=480
 )
 parser.add_argument(
-	"--save", type=str, default="./media/result/trt_270_480_01.png"
+	"--save", type=str
 )
 parser.add_argument(
 	"--scale", type=int, default=4
@@ -38,10 +38,9 @@ if __name__ == "__main__":
 	# SuperResolution
 	lrObj = preprocess(lrOrig, opt.norm)
 	srObj = postprocess(trt_model(lrObj), opt.norm)
-	
-	cv2.imwrite(opt.save, srObj)
-	'''
-	cv2.imshow("SuperResolution", srObj)
-	cv2.waitKey()
-	cv2.destroyAllWindows()
-	'''
+
+	if not opt.save:
+		save = "./media/result/trt_" + opt.image[-14:]
+		cv2.imwrite(save, srObj)
+	else:
+		cv2.imwrite(opt.save, srObj)
