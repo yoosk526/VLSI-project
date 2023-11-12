@@ -46,7 +46,7 @@ if __name__ == "__main__":
 	cv2.namedWindow(BICUBIC_SR_WINDOW)
 	cv2.moveWindow(BICUBIC_SR_WINDOW, 570, 250)
 	cv2.imshow(BICUBIC_SR_WINDOW, canvas)
-	cv2.waitKey(5000)
+	cv2.waitKey(10000)
 	cv2.destroyAllWindows()
 
 	'''
