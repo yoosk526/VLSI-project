@@ -1,6 +1,4 @@
 # Python pycache
-libs/__pycache__/*
+libs/__pycache__/
 
 # ETC
-
-
