@@ -50,8 +50,8 @@ if __name__ == "__main__":
 
     cv2.namedWindow(LR_WINDOW)
     cv2.namedWindow(BICUBIC_SR_WINDOW)
-    cv2.moveWindow(LR_WINDOW, 80, 250)
-    cv2.moveWindow(BICUBIC_SR_WINDOW, 570, 250)
+    cv2.moveWindow(LR_WINDOW, 80, 30)
+    cv2.moveWindow(BICUBIC_SR_WINDOW, 570, 30)
 
     while True:
         ret, frame = cap.read()
