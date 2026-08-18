@@ -49,10 +49,10 @@ if __name__ == "__main__":
 	cv2.waitKey(10000)
 	cv2.destroyAllWindows()
 
-	'''
+	
 	if not opt.save:
 		save = "./media/result/trt_" + opt.image[-14:]
 		cv2.imwrite(save, srObj)
 	else:
 		cv2.imwrite(opt.save, srObj)
-	'''
+	
